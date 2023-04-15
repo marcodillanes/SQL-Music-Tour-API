@@ -11,17 +11,53 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Set_Times.belongsTo(Band, {
+        foreignKey: 'band_id',
+        as: 'band'
+      })
+
+      Set_Times.belongsTo(Event, {
+        foreignKey: 'event_id',
+        as: 'event'
+      })
+
+      Set_Times.belongsTo(Stage, {
+        foreignKey: 'stage_id',
+        as: 'stage'
+      })
     }
   }
-  SetTime.init({
-    band_id: DataTypes.INTEGER,
-    name: DataTypes.STRING,
-    genre: DataTypes.TEXT,
-    available_start_time: DataTypes.DATE,
-    end_time: DataTypes.DATE
+  Set_Times.init({
+    set_time_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    event_id: {
+      type: DataTypes.SMALLINT,
+      allowNull: false
+    },
+    stage_id: {
+      type: DataTypes.SMALLINT,
+      allowNull: false
+    },
+    band_id: {
+      type: DataTypes.SMALLINT,
+      allowNull: false
+    },
+    start_time: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    end_time: {
+      type: DataTypes.DATE,
+      allowNull: false
+    }
   }, {
     sequelize,
-    modelName: 'SetTime',
+    modelName: 'Set_Times',
+    tableName: 'set_time',
+    timestamps: false
   });
-  return SetTime;
+  return Set_Times;
 };

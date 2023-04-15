@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('events', {
-      band_id: {
+      event_id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,

@@ -11,17 +11,33 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Stage.belongsToMany(Event, {
+        foreignKey: 'stage_id',
+        as: 'events',
+        through: Stage_Events
+      })
+
+      Stage.hasMany(Set_Times, {
+        foreignKey: 'stage_id',
+        as: 'set_time'
+      })
     }
   }
   Stage.init({
-    band_id: DataTypes.INTEGER,
-    name: DataTypes.STRING,
-    genre: DataTypes.TEXT,
-    available_start_time: DataTypes.DATE,
-    end_time: DataTypes.DATE
+    stage_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Stage',
+    tableName: 'stage',
+    timestamps: false
   });
   return Stage;
 };
